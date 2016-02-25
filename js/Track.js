@@ -1,10 +1,10 @@
-var track = function Track(allowedValues, to){
+var Track = function Track(allowedValues, to){
     this.allowedValues = allowedValues;
     this.to = to;
 };
 
-track.prototype.isAllowed = function(){
-    return false;
+Track.prototype.isAllowed = function(value){
+    return this.allowedValues == null || this.allowedValues.contains(value);
 };
 
-module.exports = track;
+module.exports = Track;
