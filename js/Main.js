@@ -3,7 +3,6 @@ var State = require("./State.js");
 var Automaton = require("./Automaton");
 
 //primitives
-var digits = "0123456789".split("");
 var letters = "abcdefghijklmonpqrstuvwxyz".split("");
 var at = ["@"];
 var dot = ["."];
