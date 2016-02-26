@@ -29,6 +29,10 @@ Once you've made your rule/automaton you can pass it a string and it will walk t
 
     var automaton = new Automaton(start,"email");
     automaton.consume("paul@gmail.com")
+    //returns Token object {
+        type:"email",
+        value:"paul@gmail.com"
+    }
 
 That second parameter is the type of token the automaton wil return.
 Did i say return? Yes the consume function returns null if the string isn't valid and a token object containing the "value" and the "type" of the token.
