@@ -10,7 +10,7 @@ var Automaton = function(origin, tokenType){
 Automaton.prototype.feed = function(symbol){
     for(var i = 0; i < this.currentState.nextStates.length; i++){
         var track = this.currentState.nextStates[i];
-        if(track.allowedValues.indexOf(symbol) > -1){
+        if(track.symbols.indexOf(symbol) > -1){
             this.currentState = track.to;
             this.size++;
             return true;

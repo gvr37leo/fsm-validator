@@ -1,10 +1,16 @@
-var Track = function Track(allowedValues, to){
-    this.allowedValues = allowedValues;
+var Track = function Track(symbols, to){
+    this.symbols = symbols;
     this.to = to;
+    this.whitelist = true;
 };
 
 Track.prototype.isAllowed = function(value){
-    return this.allowedValues == null || this.allowedValues.contains(value);
+    var contains = this.symbols.contains(value) > -1;
+    if(this.whitelist){
+        return contains
+    }else{//blacklist
+        return !contains
+    }
 };
 
 module.exports = Track;

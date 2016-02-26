@@ -11,7 +11,7 @@ this is an example for what an email rule might look like it corresponds with th
     start.plus(letters).normal(at).plus(letters).normal(dot).plus(letters).finished = true;
 
 For an explanation about finite state machines there is a very good video about it on [numberphile](https://www.youtube.com/watch?v=RjOCRYdg8BY).
-![finite state machine](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/CPT-FSM-abcd.svg/326px-CPT-FSM-abcd.svg.png)
+![finite state machine](http://i.imgur.com/zV0H3uO.png)
 
 ## How to use
 First of all you need to make a "rule" you do this by making an automaton like the one in the image above.
@@ -33,7 +33,6 @@ Once you've made your rule/automaton you can pass it a string and it will walk t
         type:"email",
         value:"paul@gmail.com"
     }
-
 That second parameter is the type of token the automaton wil return.
 Did i say return? Yes the consume function returns null if the string isn't valid and a token object containing the "value" and the "type" of the token.
 
@@ -56,9 +55,35 @@ The total for the email rule looks like this.
     var automaton = new Automaton(start,"email");
     console.log(automaton.consume("paul@gmail.com"));
 
+## Functions
+- The black circle represents the State you're calling the method on
+- The green circle represents the State that is returned
+- The lines represent the symbols you can pass in the parameters
+
+### normal
+![normal](http://i.imgur.com/vV0Lm9r.png)
+
+### or
+![or](http://i.imgur.com/kpwxd2G.png)
+
+### optional
+![optional](http://i.imgur.com/cUNFjPs.png)
+
+### star
+![star](http://i.imgur.com/gdUFnHl.png)
+
+### plus
+![plus](http://i.imgur.com/WXaxiXy.png)
+
+### add
+![add]()
+
 ## still coming
 - documentation on all the classes and functions and how they work
-- comparisson to regular expressions
+- comparisons to regular expressions
+- explanation about nested rules
+- pictures showing the data-structure
 - extra functionality like
     - giving a range
     - black and whitelisting characters
+    - pre-made primitives

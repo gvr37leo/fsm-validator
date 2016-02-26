@@ -28,11 +28,15 @@ State.prototype.plus = function(options){
     return end;
 };
 
+//\v/
+// *
 State.prototype.star = function(options){
     this.nextStates.push(new Track(options,this));
     return this;
 };
 
+///-2-\
+//*-1--*
 State.prototype.or = function(options1, options2){
     var end = new State();
     var track1 = new Track(options1, end);
@@ -42,6 +46,7 @@ State.prototype.or = function(options1, options2){
     return end;
 };
 
+//*-v-*
 State.prototype.normal = function(options){
     var end = new State();
     var track = new Track(options, end);
@@ -51,7 +56,7 @@ State.prototype.normal = function(options){
 
 State.prototype.add = function(state){
     this.nextStates.concat(state.nextStates);
-    return this;
+    return state;
 };
 
 module.exports = State;
