@@ -1,6 +1,6 @@
 {
   "name": "fsm-validator",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "alternative for general expressions",
   "main": "index.js",
   "repository": "https://github.com/gvr37leo/fsm-validator.git",
