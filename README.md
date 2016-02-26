@@ -1,8 +1,8 @@
 #fsm-validator
 
 ## Intro
-fsm-validator or Final State Machine validator is a lexer that uses final state machines to make rules instead of regular expressions.
-The idea is that final state machines are a better fit for validating strings and more customizable.
+fsm-validator or Finite State Machine validator is a lexer that uses finite state machines to make rules instead of regular expressions.
+The idea is that finite state machines are a better fit for validating strings and more customizable.
 
 ## Example
 this is an example for what an email rule might look like it corresponds with this antlr syntax
@@ -11,7 +11,7 @@ this is an example for what an email rule might look like it corresponds with th
     start.plus(letters).normal(at).plus(letters).normal(dot).plus(letters).finished = true;
 
 For an explanation about finite state machines there is a very good video about it on [numberphile](https://www.youtube.com/watch?v=RjOCRYdg8BY).
-![final state machine](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/CPT-FSM-abcd.svg/326px-CPT-FSM-abcd.svg.png)
+![finite state machine](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/CPT-FSM-abcd.svg/326px-CPT-FSM-abcd.svg.png)
 
 ## How to use
 First of all you need to make a "rule" you do this by making an automaton like the one in the image above.
