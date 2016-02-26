@@ -2,22 +2,28 @@ var Token = require("./Token.js");
 
 var Automaton = function(origin, tokenType){
     this.origin = origin;
-    this.currentstate = origin;
+    this.currentState = origin;
     this.size = 0;
     this.tokenType = tokenType;
 };
 
 Automaton.prototype.feed = function(symbol){
-    this.currentstate.nextStates.forEach(function(track){
-        if(track.allowedValues.contains(symbol)){
+    for(var i = 0; i < this.currentState.nextStates.length; i++){
+        var track = this.currentState.nextStates[i];
+        if(track.allowedValues.indexOf(symbol) > -1){
             this.currentState = track.to;
-            size++;
+            this.size++;
             return true;
         }
-    });
+    }
     return false
 };
 
+/**
+ *
+ * @param {string} sentence
+ * @returns Token the biggest token it can make with the given sentence and null if none can be made
+ */
 Automaton.prototype.consume = function(sentence){
     var characters = sentence.split("");
     var checkpoint = null;
@@ -27,11 +33,11 @@ Automaton.prototype.consume = function(sentence){
         if(this.feed(character)){
             if(this.currentState.isFinalState()){
                 //character is legal and got a checkpoint at an endpoint
-                checkpoint = new Token(this.tokenType,sentence.substring(0,size));
+                checkpoint = new Token(this.tokenType,sentence.substring(0,this.size));
             }
         }else if(this.currentState.isFinalState()){
             //encountered an illegal character but you were on a checkpoing so just return that
-            checkpoint = new Token(this.tokenType,sentence.substring(0,size));
+            checkpoint = new Token(this.tokenType,sentence.substring(0,this.size));
             break;
         }else{
             //encountered an illegal character so return the latest legal state of the automaton
