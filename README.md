@@ -2,11 +2,12 @@
 
 ## Intro
 fsm-validator or Finite State Machine validator is a lexer that uses finite state machines to make rules instead of regular expressions.
-The idea is that finite state machines are a better fit for validating strings and more customizable.
+The idea is that in code finite state machines are a lot more customizable than regular expressions.
+Need to filter out some tokens? need a new primitive, some weird kind of graph for your FSM, now you can implement it without having to go to regex headquarters.
 
 ## Example
 this is an example for what an email rule might look like it corresponds with this antlr syntax
-`letter+ '@' letter+ '.' letter+`
+`letter+ '@' letter+ '.' letter+` or this regular expression `\[a-z]+@[a-z]+\.[a-z]+\`
 
     start.plus(letters).normal(at).plus(letters).normal(dot).plus(letters).finished = true;
 

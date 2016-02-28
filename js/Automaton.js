@@ -1,16 +1,20 @@
 var Token = require("./Token.js");
+var State = require("./State.js");
+var $ = require("jquery");
 
 var Automaton = function(origin, tokenType){
-    this.origin = origin;
-    this.currentState = origin;
+    this.original = origin;
+    this.origin = $.extend(true,{},origin);
+    this.currentState = this.origin;
     this.size = 0;
     this.tokenType = tokenType;
 };
 
 Automaton.prototype.feed = function(symbol){
-    for(var i = 0; i < this.currentState.nextStates.length; i++){
-        var track = this.currentState.nextStates[i];
-        if(track.symbols.indexOf(symbol) > -1){
+    for(var i = 0; i < this.currentState.tracks.length; i++){
+        var track = this.currentState.tracks[i];
+        if(track.isAllowed(symbol)){
+            track.hits ++;
             this.currentState = track.to;
             this.size++;
             return true;
@@ -45,12 +49,14 @@ Automaton.prototype.consume = function(sentence){
         }
     }
     refresh();
+    // instead of refresh copy a new one from original
     return checkpoint;
 };
 
 function refresh(){
     this.currentState = this.origin;
     this.size = 0;
+    //hits aren't refreshed yet
 }
 
 module.exports = Automaton;

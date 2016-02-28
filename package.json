@@ -3,6 +3,7 @@
   "version": "1.3.0",
   "description": "alternative for general expressions",
   "main": "index.js",
+  "keywords":["final state machine","fsm","validation","lexer"],
   "repository": "https://github.com/gvr37leo/fsm-validator.git",
   "scripts": {
     "test": "echo \"Error: no test specified\""
