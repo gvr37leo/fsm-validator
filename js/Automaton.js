@@ -1,10 +1,10 @@
 var Token = require("./Token.js");
 var State = require("./State.js");
-var $ = require("jquery");
+var extend = require("extend");
 
 var Automaton = function(origin, tokenType){
     this.original = origin;
-    this.origin = $.extend(true,{},origin);
+    this.origin = extend(true,{},origin);
     this.currentState = this.origin;
     this.size = 0;
     this.tokenType = tokenType;
@@ -49,14 +49,12 @@ Automaton.prototype.consume = function(sentence){
         }
     }
     refresh();
-    // instead of refresh copy a new one from original
     return checkpoint;
 };
 
 function refresh(){
-    this.currentState = this.origin;
+    this.origin = extend(true,{},this.original);
     this.size = 0;
-    //hits aren't refreshed yet
 }
 
 module.exports = Automaton;

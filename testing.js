@@ -1,5 +1,7 @@
-var validator = require("./js/fsm-validator.js");
+var fsm = require("./js/fsm-validator.js");
 
-var start = new validator.State();
+var emailRule = fsm.Presets.email;
+var automaton = fsm.Automaton(emailRule,"email");
 
-console.log(start);
+
+console.log(automaton.consume("paul@gmail.com"));
