@@ -1,28 +1,13 @@
-var Track = function Track(symbols, to){
-    this.symbols = symbols;
+var Track = function(symbols, to){
     this.to = to;
+    this.symbols = symbols.split("");
     this.whitelist = true;
-
-    //hits should probably be on State or maybe on track
-    //probably on track it kinda functions like a + or *
-    //would probably require a from to check the hits
-    //maybe a bounded by track field this is going a bit of a weird way
-    this.bounded = false;
-    this.hits = 0;
-    this.min = 0;//or more
-    this.max = 10;//or less
 };
 
-Track.prototype.isAllowed = function(value){
-    var contains = this.symbols.indexOf(value) > -1;
-    if(!this.bounded || (this.bounded && this.hits <= this.max)){
-        if(this.whitelist){
-            return contains
-        }else{//blacklist
-            return !contains
-        }
-    }
-    return false
+Track.prototype.isAllowed = function(symbol){
+
+    var contains = this.symbols.indexOf(symbol) > -1;
+    return contains == this.whitelist
 };
 
 module.exports = Track;
