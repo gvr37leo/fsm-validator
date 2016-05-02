@@ -58,9 +58,9 @@ The total for the email rule looks like this.
 ## warning
 The implementation of these finite state machines is a little different than regular expressions.
 Normally regular expressions consider a string valid if there is any possible way to complete the finite state machine.
-however the way these fsm's are implemented is that they will take the first path that is available so the order in which you specify the rules
-does matter. for instance this regex `\a+a\` would allow aa but `start.plus(a).normal(a)` wouldn't because 
-it would keep looping in the a+ part so be aware of this and try to avoid ambiguity.
+However the way these fsm's are implemented is that they will take the first path that is available, so the order in which you specify the rules
+does matter. for instance this regex `\a+a\` would allow aa but `start.plus("a").normal("a")` wouldn't because 
+it would keep looping in the a+ part and never reach the accepting state so be aware of this and try to avoid ambiguity.
 
 ## still coming
 - documentation on all the classes and functions and how they work
