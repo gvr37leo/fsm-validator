@@ -1,7 +1,11 @@
-var fsm = require("./js/fsm-validator.js");
+//var Lexer = require("./js2/Lexer");
+var State = require("./js2/State");
 
-var emailRule = fsm.Presets.email;
-var automaton = fsm.Automaton(emailRule,"email");
+var letters = "abcdefghijklmnopqrstuvwxyz";
+var start = new State();
 
+start.plus(letters).normal("@").plus(letters).normal(".").plus(letters).accepting = true;
 
-console.log(automaton.consume("paul@gmail.com"));
+var result = start.consume("paul@gmail.com");
+
+console.log(result);

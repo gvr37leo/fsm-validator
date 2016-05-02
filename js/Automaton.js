@@ -1,11 +1,10 @@
 var Token = require("./Token.js");
 var State = require("./State.js");
-var extend = require("extend");
 
-var Automaton = function(origin, tokenType){
-    this.original = origin;
-    this.origin = extend(true,{},origin);
-    this.currentState = this.origin;
+var Automaton = function(tokenType){
+    this.states = [];
+    //this.origin;
+    //this.currentState;
     this.size = 0;
     this.tokenType = tokenType;
 };
@@ -40,7 +39,7 @@ Automaton.prototype.consume = function(sentence){
                 checkpoint = new Token(this.tokenType,sentence.substring(0,this.size));
             }
         }else if(this.currentState.isFinalState()){
-            //encountered an illegal character but you were on a checkpoing so just return that
+            //encountered an illegal character but you were on a checkpoint so just return that
             checkpoint = new Token(this.tokenType,sentence.substring(0,this.size));
             break;
         }else{
@@ -48,13 +47,21 @@ Automaton.prototype.consume = function(sentence){
             break;
         }
     }
-    refresh();
+    this.refresh();
     return checkpoint;
 };
 
-function refresh(){
-    this.origin = extend(true,{},this.original);
+Automaton.prototype.setOrigin = function(state){
+    this.origin = state;
+    this.currentState = state;
+};
+
+Automaton.prototype.refresh = function(){
     this.size = 0;
-}
+    this.currentState = this.origin;
+    this.states.forEach(function(state){
+        state.refresh();
+    });
+};
 
 module.exports = Automaton;

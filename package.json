@@ -9,5 +9,8 @@
     "test": "echo \"Error: no test specified\""
   },
   "author": "paul boon",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mootools": "latest"
+  }
 }

@@ -1,6 +1,8 @@
 var Track = require("./Track.js");
 
-var State = function(){
+var State = function(automaton){
+    this.automaton = automaton;
+    this.automaton.states.push(this);
     this.tracks = [];
     this.finished = false;
 };
@@ -10,7 +12,7 @@ State.prototype.isFinalState = function(){
 };
 
 State.prototype.optional = function(options){
-    var end = new State();
+    var end = new State(this.automaton);
     var track = new Track();
     var optional = new Track();
     this.tracks.push(track);
@@ -20,7 +22,7 @@ State.prototype.optional = function(options){
 //   \v/
 //*-v-*
 State.prototype.plus = function(options){
-    var end = new State();
+    var end = new State(this.automaton);
     var track = new Track(options, end);
     var cycle = new Track(options, end);
     this.tracks.push(track);
@@ -38,7 +40,7 @@ State.prototype.star = function(options){
 ///-2-\
 //*-1--*
 State.prototype.or = function(options1, options2){
-    var end = new State();
+    var end = new State(this.automaton);
     var track1 = new Track(options1, end);
     var track2 = new Track(options2, end);
     this.tracks.push(track1);
@@ -48,7 +50,7 @@ State.prototype.or = function(options1, options2){
 
 //*-v-*
 State.prototype.normal = function(options){
-    var end = new State();
+    var end = new State(this.automaton);
     var track = new Track(options, end);
     this.tracks.push(track);
     return end;
@@ -57,6 +59,12 @@ State.prototype.normal = function(options){
 State.prototype.add = function(state){
     this.tracks.concat(state.tracks);
     return state;
+};
+
+State.prototype.refresh = function(){
+    this.tracks.forEach(function(track){
+        track.hits = 0;
+    });
 };
 
 module.exports = State;

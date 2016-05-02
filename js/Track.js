@@ -14,8 +14,8 @@ var Track = function Track(symbols, to){
 };
 
 Track.prototype.isAllowed = function(value){
-    var contains = this.symbols.contains(value) > -1;
-    if(this.bounded && this.hits <= this.max){
+    var contains = this.symbols.indexOf(value) > -1;
+    if(!this.bounded || (this.bounded && this.hits <= this.max)){
         if(this.whitelist){
             return contains
         }else{//blacklist

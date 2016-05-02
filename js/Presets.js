@@ -10,8 +10,9 @@ var digit = "0123456789".split("");//d
 var at = ["@"];
 var newline = ["\n"];//anything except newline, meant for blacklist
 
-var email = new State();
-email.plus(letters).normal(["@"]).plus(letters).normal(["."]).plus(letters).finished = true;
+var email = new Automaton("email");
+var emailStart = new State(email).plus(letters).normal(["@"]).plus(letters).normal(["."]).plus(letters).finished = true;
+email.setOrigin(emailStart);
 
 module.exports = {
     whitespace:whitespace,
