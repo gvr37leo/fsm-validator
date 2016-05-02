@@ -1,6 +1,6 @@
 {
   "name": "fsm-validator",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "alternative for general expressions",
   "main": "index.js",
   "keywords": [
@@ -15,7 +15,5 @@
   },
   "author": "paul boon",
   "license": "ISC",
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }
