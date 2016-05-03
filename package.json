@@ -1,13 +1,11 @@
 {
   "name": "fsm-validator",
   "version": "1.5.0",
-  "description": "alternative for general expressions",
-  "main": "index.js",
+  "description": "alternative for regular expressions",
+  "main": "./js/State.js",
   "keywords": [
-    "final state machine",
-    "fsm",
-    "validation",
-    "lexer"
+    "finite state machine",
+    "fsm"
   ],
   "repository": "https://github.com/gvr37leo/fsm-validator.git",
   "scripts": {

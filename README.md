@@ -16,12 +16,12 @@ For an explanation about finite state machines there is a very good video about 
 ## How to use
 First of all you need to make a finite state machine like the one in the image above.
 you do this by creating a Start state and then using it's methods to build it up.
-You can set a states finished attribute to true this will mark it as a legal endstate,
-in 99% of all cases you'll want your final state to be the "finished" state.
+You can set a states accepting attribute to true this will mark it as a legal endstate,
+in 99% of all cases you'd want your final state to be the "accepting" state.
     
     var letters = "abcdefghijklmonpqrstuvwxyz";
     var start = new State();
-    start.plus(letters).normal(at).plus(letters).normal(dot).plus(letters).finished = true;
+    start.plus(letters).normal(at).plus(letters).normal(dot).plus(letters).accepting = true;
 
 Once you've made your fsm you can pass it a string and it will walk the fsm seeing if it fits the pattern.
 The total for the email rule looks like this.
@@ -59,7 +59,7 @@ The total for the email rule looks like this.
 The implementation of these finite state machines is a little different than regular expressions.
 Normally regular expressions consider a string valid if there is any possible way to complete the finite state machine.
 However the way these fsm's are implemented is that they will take the first path that is available, so the order in which you specify the rules
-does matter. for instance this regex `\a+a\` would allow aa but `start.plus("a").normal("a")` wouldn't because 
+does matter. For instance this regex `\a+a\` would allow aa but `start.plus("a").normal("a")` wouldn't because 
 it would keep looping in the a+ part and never reach the accepting state so be aware of this and try to avoid ambiguity.
 
 ## still coming
