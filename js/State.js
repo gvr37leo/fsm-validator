@@ -1,12 +1,44 @@
 var Track = require("./Track");
+var Tree = require("./Tree");
 
 var State = function(){
     this.tracks = [];
+    this.externals = [];
     this.accepting = false;
 };
 
 State.prototype.isFinalState = function(){
     return this.tracks.length == 0 || this.accepting
+};
+
+State.prototype.next = function(symbol, stateStack, treeStack){
+    //popping can probably be done with popping stack
+    //still need to make it a track somehow
+    for(var i = 0; i < this.externals.length; i++){
+        var nextState = this.externals[i].symbols.next(symbol);//symbols is a State here
+        if(nextState != null){//lowered
+            stateStack[stateStack.length - 1] = this.externals[i].to;//stepping over the reference for when you return after popping
+            stateStack.push(nextState);
+            var newTree = new Tree(symbol);
+            treeStack.top().children.push(newTree);
+            treeStack.push(newTree);
+            console.log("entered external");
+            return nextState;
+        }
+    }
+
+    for(i = 0; i < this.tracks.length; i++){//shifting
+        var currentTrack = this.tracks[i];
+        if(currentTrack.isAllowed(symbol)){
+            return currentTrack.to;
+        }
+    }
+    if(this.accepting){//raise
+        stateStack.pop();
+        treeStack.pop();
+        //return stateStack.top().next(symbol,stateStack,treeStack)
+    }
+    return null;
 };
 
 State.prototype.consume = function(sentence){
@@ -28,15 +60,13 @@ State.prototype.consume = function(sentence){
     return checkpoint;
 };
 
-State.prototype.next = function(symbol){
-    for(var i = 0; i < this.tracks.length; i++){
-        var currentTrack = this.tracks[i];
-        if(currentTrack.isAllowed(symbol)){
-            return currentTrack.to;
-        }
-    }
-    return null;
+State.prototype.to = function(symbol, to){
+    var track = new Track(symbol, to);
+    this.tracks.push(track);
+    return to;
 };
+
+
 
 
 
@@ -78,10 +108,20 @@ State.prototype.star = function(symbol, whitelist){
 //*-1--*
 State.prototype.or = function(symbol1, symbol2){
     var end = new State();
-    var track1 = new Track(symbol1, end);
-    var track2 = new Track(symbol2, end);
-    this.tracks.push(track1);
-    this.tracks.push(track2);
+    if(symbol1 instanceof State){
+        this.externals.push(new Track(symbol1,end))
+    }else{
+        var track1 = new Track(symbol1, end);
+        this.tracks.push(track1);
+    }
+
+    if(symbol2 instanceof State){
+        this.externals.push(new Track(symbol2,end ))
+    }else{
+        var track2 = new Track(symbol2, end);
+        this.tracks.push(track2);
+    }
+
     return end;
 };
 

@@ -1,5 +1,17 @@
 #fsm-validator
 
+- [Intro](#Intro)
+- [Example](#Example)
+- [How to use](#How-to-use)
+- [Functions](#Functions)
+    - [normal](#)
+    - [or](#)
+    - [optional](#)
+    - [star](#)
+    - [plus](#)
+- [warning](#warning)
+- [still coming](#still-coming)
+
 ## Intro
 fsm-validator is an alternative to regular expressions however it allows you to write them in a more programmatic way.
 This could come in very handy if you'd want to generate a different fsm depending on some input.
