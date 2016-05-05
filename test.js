@@ -10,6 +10,6 @@ var parser = new Parser();
 var start = new State();
 start.normal("(").or("m",start).normal(")").accepting = true;
 
-parser.rules.push(start);
+parser.addRule(start,"brackets");
 var tree = parser.parse("((m))");
 console.log(tree);

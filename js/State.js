@@ -11,18 +11,24 @@ State.prototype.isFinalState = function(){
     return this.tracks.length == 0 || this.accepting
 };
 
-State.prototype.next = function(symbol, stateStack, treeStack){
-    //popping can probably be done with popping stack
-    //still need to make it a track somehow
+State.prototype.next = function(symbol, stateStack, treeStack, rules, types){
+    //maybe loop through parser rules to see which rule you're entering
     for(var i = 0; i < this.externals.length; i++){
         var nextState = this.externals[i].symbols.next(symbol);//symbols is a State here
-        if(nextState != null){//lowered
+        if(nextState != null){//lowering
             stateStack[stateStack.length - 1] = this.externals[i].to;//stepping over the reference for when you return after popping
             stateStack.push(nextState);
-            var newTree = new Tree(symbol);
+
+            //loop through rules HACK inefficient
+            for(var j = 0; j < rules.length; j++){
+                if(this.externals[i].symbols == rules[i]){
+                    var newTree = new Tree(types[i]);
+                }
+            }
+
+
             treeStack.top().children.push(newTree);
             treeStack.push(newTree);
-            console.log("entered external");
             return nextState;
         }
     }
@@ -33,10 +39,10 @@ State.prototype.next = function(symbol, stateStack, treeStack){
             return currentTrack.to;
         }
     }
-    if(this.accepting){//raise
+    if(this.accepting){//raising
         stateStack.pop();
         treeStack.pop();
-        //return stateStack.top().next(symbol,stateStack,treeStack)
+        return stateStack.top().next(symbol,stateStack,treeStack);
     }
     return null;
 };
