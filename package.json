@@ -1,6 +1,6 @@
 {
   "name": "fsm-validator",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "alternative for regular expressions",
   "main": "./js/State.js",
   "keywords": [
