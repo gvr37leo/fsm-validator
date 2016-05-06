@@ -9,7 +9,7 @@ Parser.prototype.parse = function(sentence){
     var position = 0;
     //states is a stack of pointers to currentstate
     var stateStack = [this.rules[0]];//maybe stack of rules
-    var treeStack = [new Tree("S")];
+    var treeStack = [new Tree("brackets")];
 
     while(position < sentence.length){
         var next = stateStack.top().next(sentence[position],stateStack,treeStack,this.rules,this.types);
