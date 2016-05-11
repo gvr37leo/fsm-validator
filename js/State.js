@@ -21,8 +21,8 @@ State.prototype.next = function(symbol, stateStack, treeStack, rules, types){
 
             //loop through rules HACK inefficient
             for(var j = 0; j < rules.length; j++){
-                if(this.externals[i].symbols == rules[i]){
-                    var newTree = new Tree(types[i]);
+                if(this.externals[i].symbols == rules[j]){
+                    var newTree = new Tree(types[j]);
                 }
             }
 
@@ -137,7 +137,12 @@ State.prototype.normal = function(symbol, whitelist){
     var end = new State();
     var track = new Track(symbol, end);
     track.whitelist = whitelist;
-    this.tracks.push(track);
+    if(symbol instanceof State){
+        this.externals.push(new Track(symbol,end ))
+    }else{
+        this.tracks.push(track);
+    }
+
     return end;
 };
 
