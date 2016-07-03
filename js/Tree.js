@@ -7,15 +7,18 @@ var Tree = function(type, onEnter, onExit){
     //this.onExit = onExit;
 };
 
-//Tree.prototype.walk = function(interpreter){
-//    this.onEnter(interpreter);
-//    for(var i = 0; i < this.children.length; i++){
-//        if(this.children[i] instanceof Tree){
-//            this.children[i].walk();
-//        }
-//    }
-//    this.onExit(interpreter);
-//    //return;
-//};
+Tree.prototype.walk = function(interpreter){
+    for (var i = 0; i < this.children.length; i++) {
+        var child = this.children[i];
+        if(child instanceof Tree){
+            //trigger on enter
+            //do something with type of child tree
+            //like maybe call that function from a map in the interpreter
+            child.walk();
+            //trigger on leave
+        }
+    }
+
+};
 
 module.exports = Tree;

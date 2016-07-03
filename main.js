@@ -4,7 +4,7 @@ Array.prototype.top = function(){
 
 var Parser = require("./js/Parser");
 var State = require("./js/State");
-var Interpreter = require("./js/Interpreter");
+var Interpreter = require("./js/HTMLInterpreter");
 
 var parser = new Parser();
 var interpreter = new Interpreter();
